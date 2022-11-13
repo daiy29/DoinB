@@ -14,38 +14,36 @@ dark_red = (139, 0, 0)
 # Create layered window
 hwnd = pygame.display.get_wm_info()["window"]
 win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE,
-                       win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)
+                       win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED | win32con.WS_EX_TRANSPARENT)     #win32con.WS_EX_TRANSPARENT allows click thru
 # Set window transparency color
 win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 0, win32con.LWA_COLORKEY)
 
 def windowEnumerationHandler(hwnd, top_windows):
     top_windows.append((hwnd, win32gui.GetWindowText(hwnd)))
 
+#i don't know what the fuck I did but it works for now, don't change this lol"
+
 
 while not done:     
-    top_windows = []
-    win32gui.EnumWindows(windowEnumerationHandler, top_windows)
-    for i in top_windows:
-        # print(i)
-        if "pygame window" in i[1].lower():
-            # print(i, 'is found')
-                win32gui.ShowWindow(i[0],5)
-                shell = win32com.client.Dispatch("WScript.Shell")
-                shell.SendKeys('%')
-                win32gui.SetForegroundWindow(i[0])
-                break
+
+
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_TAB:
                 pygame.display.set_mode((1,1),pygame.NOFRAME)
         if event.type == KEYUP:
-            if event.key == K_TAB:
+            if event.key == K_TAB:      
                 pygame.display.set_mode((800, 600),pygame.NOFRAME)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 30 <= mouse[0] <= 60 and 30 <= mouse[1] <= 60:
+                print("click")
         if event.type == pygame.QUIT:
             done = True
 
     screen.fill(fuchsia)  # Transparent background
+    win32gui.SetWindowPos(pygame.display.get_wm_info()['window'], -1, 800, 600, 0, 0, 1)
     pygame.draw.rect(screen, dark_red, pygame.Rect(30, 30, 60, 60))
+    mouse = pygame.mouse.get_pos()
     pygame.display.update()
 
 #https://www.reddit.com/r/pygame/comments/m061fs/optimisation_wrt_transparent_overlays/
