@@ -1,14 +1,28 @@
 from riotwatcher import LolWatcher, ApiError
+import requests
 from dotenv import load_dotenv
 import os
-# from summoner import Summoner
 
 load_dotenv()
 api_key = os.environ.get('API_KEY')
-my_region = os.environ.get("REGION")
+my_region = os.environ.get('REGION')
+player_list = os.environ.get('PLAYERLIST')
+certificate = os.environ.get('CERTIFICATE')
+
 lol_watcher = LolWatcher(api_key)
 
-# maybe move that top stuff somewhere else
+url = requests.get(player_list, verify=certificate) 
+gamedata = url.json()
+
+def requestSummonerTeam(data):
+    for summoner in data:
+        team = summoner["team"]
+    return team
+
+def requestSummonerName(data):
+    for summoner in data:
+        summoner_name = summoner["summonerName"]
+    return summoner_name
 
 def requestSummonerId(region):
     data = lol_watcher.summoner.by_name(region, 'Legendai')
