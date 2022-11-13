@@ -5,7 +5,7 @@ Name:
 Item:
 Level?
 Position?
-Runes to check for haste
+Runes to check for haste ()
 Summoner Spells
 Team
 
@@ -36,5 +36,10 @@ NEED - items.json ✔️
 
 need to check tp, smite changing cd, hexflash
 
+NEED TO HARDCODE ABILITY LEVELS XD
+
+dump gives summoner names 
+summoner v4 gives encrypted summonerid which is needed 
+spectator v4 has rune info, but this is for each individual summoner
 """
 
