@@ -8,6 +8,7 @@ Position?
 Runes to check for haste ()
 Summoner Spells
 Team
+game time
 
 Datadragon for assets
 

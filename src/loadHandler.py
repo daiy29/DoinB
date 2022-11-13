@@ -46,7 +46,7 @@ def requestSpellId(region, summonerid):
     spell2_id = data["participants"][0]["spell2Id"]
     return ([spell1_id,spell2_id])
 
-def requestRuneId(region, summonerid):
+def requestRuneId(region, summonerid): # need something that parses perk ids to actual rune, but this is sufficient for now
     try:
         data = lol_watcher.spectator.by_summoner(region, summonerid)
     except Exception as e:
@@ -54,6 +54,20 @@ def requestRuneId(region, summonerid):
     rune_id = data["participants"][0]["perks"]
     return (rune_id)
 
-# need something that parses perk ids to actual rune, but this is sufficient for now
+def requestChampId():
+    pass
+
+def requestSummonerLevel():
+    pass
+
+def requestSummonerItems():
+    pass
+
+def requestSummonerPosition(): #https://riot-api-libraries.readthedocs.io/en/latest/roleid.html
+    pass
+
+def requestGameTime():
+    pass
+
 
 #add check for not in game maybe?, add class for runes, summoner spells??
