@@ -9,25 +9,34 @@ api_key = os.environ.get('API_KEY')
 my_region = os.environ.get('REGION')
 player_list = os.environ.get('PLAYERLIST')
 certificate = os.environ.get('CERTIFICATE')
+all_data = os.environ.get('ALLGAMEDATA')
 
 lol_watcher = LolWatcher(api_key)
 
 try:
-    url = requests.get(player_list, verify=certificate) 
+    url = requests.get(player_list, verify=False)  #verify=certificate
+except Exception as e:
+    logging.exception("API call has failed")
+
+try:
+    url_all = requests.get(all_data, verify=False)
 except Exception as e:
     logging.exception("API call has failed")
 
 gamedata = url.json()
+allgamedata = url_all.json()
 
 def requestSummonerTeam(data):
+    teams = []
     for summoner in data:
-        team = summoner["team"]
-    return team
+        teams.append(summoner["team"])
+    return teams
 
 def requestSummonerName(data):
+    summoner_names = []
     for summoner in data:
-        summoner_name = summoner["summonerName"]
-    return summoner_name
+        summoner_names.append(summoner["summonerName"])
+    return summoner_names
 
 def requestSummonerId(region): #hardcoded my shit for testing, need to change later. Maybe should move api request outside of method.
     try:
@@ -37,7 +46,7 @@ def requestSummonerId(region): #hardcoded my shit for testing, need to change la
     summoner_id = data["id"]
     return summoner_id
 
-def requestSpellId(region, summonerid):
+def requestSpellId(region, summonerid): #old verison
     try:
         data = lol_watcher.spectator.by_summoner(region, summonerid)
     except Exception as e:
@@ -45,6 +54,12 @@ def requestSpellId(region, summonerid):
     spell1_id = data["participants"][0]["spell1Id"]
     spell2_id = data["participants"][0]["spell2Id"]
     return ([spell1_id,spell2_id])
+
+def requestSpellId2(data): # need to do a specific check for unleashed teleport later
+    summoner_spells = []
+    for summoner in data:
+        summoner_spells.append([summoner["summonerSpells"]["summonerSpellOne"]["displayName"],summoner["summonerSpells"]["summonerSpellTwo"]["displayName"]])
+    return summoner_spells
 
 def requestRuneId(region, summonerid): # need something that parses perk ids to actual rune, but this is sufficient for now
     try:
@@ -54,8 +69,11 @@ def requestRuneId(region, summonerid): # need something that parses perk ids to 
     rune_id = data["participants"][0]["perks"]
     return (rune_id)
 
-def requestChampId():
-    pass
+def requestChampId(data):
+    champ_ids = []
+    for summoner in data:
+        champ_ids.append(summoner["championName"])
+    return champ_ids
 
 def requestSummonerLevel():
     pass
@@ -66,8 +84,9 @@ def requestSummonerItems():
 def requestSummonerPosition(): #https://riot-api-libraries.readthedocs.io/en/latest/roleid.html
     pass
 
-def requestGameTime():
-    pass
+def requestGameTime(allgamedata):
+    return allgamedata["gameData"]["gameTime"]
 
+#print(requestGameTime(allgamedata))
 
 #add check for not in game maybe?, add class for runes, summoner spells??
