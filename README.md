@@ -27,8 +27,18 @@ Pocket DoinB
 <li>Place the contents in the project directory</li> 
 <li>Head to https://developer.riotgames.com/docs/portal and request a testing API key</li>
 <li>Rename .env.example to .env, and edit to include your API key and region</li>
+<li>Launch the executable</li>
+<br><br> 
+<p align='center'>
+Alternatively if the executable does not work, you may run the python script at src/main.py. You will need to install the required dependencies imported in the python modules.
+</p>
+ <br> 
+  
 </ul>
 
+
+
+  
 <h1 align='center'>
   TODO
 </h1>
