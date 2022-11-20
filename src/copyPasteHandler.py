@@ -16,6 +16,7 @@ while True:
             pyautogui.write(pyperclip.paste())
     else:
         pressed = False
+
         
 # https://stackoverflow.com/questions/14489013/simulate-python-keypresses-for-controlling-a-game
 

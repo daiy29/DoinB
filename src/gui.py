@@ -4,6 +4,7 @@ import pyperclip
 from monitorHandler import monitor_areas
 from loadHandler import *
 from conversion import msToTime
+from summoner import Summoner
 
 monitors = monitor_areas()
 m1_res = str(monitors[0][2]) + 'x' + str(monitors[0][3])
@@ -19,8 +20,10 @@ champButtons=[]
 timings=[]
 
 champs = requestChampId(gamedata)
-teams = requestSummonerTeam(gamedata)
+teams = requestSummonerTeam(gamedata) # this isnt really needed, remove this later
 spells = requestSpellId2(gamedata)
+
+
 opps = []
 opps_spells = []
 
@@ -28,6 +31,9 @@ for x in range(0,len(champs)):
     if teams[x] == 'CHAOS':
         opps.append(champs[x])
         opps_spells.append(spells[x])
+
+# opp_champion_1 = Champion(champs[5],)
+
 
 champ_portraits = []
 spell_icons = []
@@ -66,5 +72,8 @@ for players in range(0,5):
         spell=Button(window,text="test"+str(spells),image=spell_icons[ctr],command=partial(spellCallBack, players))
         ctr+=1
         spell.grid(row=players,column=spells)
+
+def hasteLoop():
+    pass
 
 window.mainloop()

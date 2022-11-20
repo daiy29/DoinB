@@ -1,4 +1,7 @@
 def msToTime(ms):
-    seconds = int((ms / 1000) % 60)
-    minutes = int((ms / (1000 * 60)) % 60)
-    return str("%d:%d" % (minutes, seconds))
+    minutes = ms // 60
+    ms %= 60
+    if ms < 10:
+        return str("%d:0%d" % (minutes, ms))
+    else:  
+        return str("%d:%d" % (minutes, ms))

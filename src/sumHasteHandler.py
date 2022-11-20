@@ -1,11 +1,11 @@
 from jsonLoader import jsonLoader
 my_file = './assets/summoner.json'
 
-def getTotalSummonerHaste(item_id,rune_id):
+def getTotalSummonerHaste(has_ionians,has_cosmic):
     total_haste = 0
-    if item_id == 3158:
+    if has_ionians == True:
         total_haste += 12
-    if rune_id == 8347:
+    if has_cosmic == True:
         total_haste += 18
     return total_haste
 

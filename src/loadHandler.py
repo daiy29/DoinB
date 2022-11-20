@@ -3,6 +3,7 @@ import requests
 from dotenv import load_dotenv
 import logging
 import os
+import re
 
 load_dotenv()
 api_key = os.environ.get('API_KEY')
@@ -69,17 +70,35 @@ def requestRuneId(region, summonerid): # need something that parses perk ids to 
     rune_id = data["participants"][0]["perks"]
     return (rune_id)
 
+def hasCosmic(rune_list):
+    hasCosmic = False
+    for rune_ids in rune_list:
+        if rune_ids == 8347:
+            hasCosmic = True
+    return hasCosmic
+        
+
 def requestChampId(data):
     champ_ids = []
     for summoner in data:
-        champ_ids.append(summoner["championName"])
+        champ_ids.append(re.sub("[^a-zA-Z]+", "", summoner["championName"]))#strip whitespaces, apostrophe
     return champ_ids
+
 
 def requestSummonerLevel():
     pass
 
-def requestSummonerItems():
-    pass
+def requestSummonerItems(data): #temp only check for ionians
+    ionians = []
+    for items in data:
+        hasIonians = False
+        for item in items["items"]:
+            if item["displayName"] == "Ionian Boots of Lucidity":
+                hasIonians = True
+        ionians.append(hasIonians)
+    return ionians
+    # print(ionians)
+
 
 def requestSummonerPosition(): #https://riot-api-libraries.readthedocs.io/en/latest/roleid.html
     pass
@@ -87,6 +106,5 @@ def requestSummonerPosition(): #https://riot-api-libraries.readthedocs.io/en/lat
 def requestGameTime(allgamedata):
     return allgamedata["gameData"]["gameTime"]
 
-#print(requestGameTime(allgamedata))
-
+#print(requestSummonerItems(gamedata))
 #add check for not in game maybe?, add class for runes, summoner spells??
