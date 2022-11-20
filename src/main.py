@@ -96,7 +96,7 @@ if __name__ == "__main__":
     haste = [0]*10
 
     for i in range(len(summoner_names)):
-        summoner_ids.append(requestSummonerId(my_region, summoner_names[i]))
+        summoner_ids.append(requestSummonerId(my_region, "Legendai"))
         all_runes = requestRuneId(my_region, summoner_ids[i])['perkIds']
         has_cosmic.append(hasCosmic(all_runes))
 
