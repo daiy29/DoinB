@@ -33,10 +33,10 @@ class Summoner:
         return self.haste
 
     def get_cosmic(self):
-        return self.get_cosmic
+        return self.has_cosmic
     
     def get_ionians(self):
-        return self.get_ionians
+        return self.has_ionians
     
     def get_summonerspells(self):
         return self.summonerspells

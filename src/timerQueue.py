@@ -1,28 +1,10 @@
-from conversion import msToTime
+from helpers import msToTime
 
 class timerQueue:
     def __init__(self, champions, spell, time):
         self.champions = champions
         self.spell = spell
         self.time = time
-    
-    def getChampions(self):
-        return self.champions
-    
-    def setChampions(self,x):
-        self.champions = x
-    
-    def getSpells(self):
-        return self.spell
-    
-    def setSpells(self, x):
-        self.spell = x
-    
-    def getTimes(self):
-        return self.time
-    
-    def setTimes(self,x):
-        self.time = x
     
     def appendChampions(self,x):
         self.champions.append(x)
@@ -44,7 +26,7 @@ class timerQueue:
         self.time.pop(x)
     
     def timeCollector(self, x):
-        for times in range(0,len(self.time)):
+        for times in range(len(self.time)):
             if self.time[times] <= x:
                 self.time.pop(times)
                 self.champions.pop(times)
@@ -52,7 +34,7 @@ class timerQueue:
 
     def toStr(self):
         myStr = []
-        for entry in range(0,len(self.time)):
+        for entry in range(len(self.time)):
             myStr.append("%s %s %s"%(self.champions[entry],self.spell[entry],msToTime(self.time[entry])))
         listToStr = ' '.join(map(str, myStr))
         return listToStr

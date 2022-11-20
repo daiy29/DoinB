@@ -1,11 +1,11 @@
-from jsonLoader import jsonLoader
+from helpers import jsonLoader
 my_file = './assets/summoner.json'
 
 def getTotalSummonerHaste(has_ionians,has_cosmic):
     total_haste = 0
-    if has_ionians == True:
+    if has_ionians:
         total_haste += 12
-    if has_cosmic == True:
+    if has_cosmic:
         total_haste += 18
     return total_haste
 
